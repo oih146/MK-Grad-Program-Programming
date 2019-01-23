@@ -105,20 +105,24 @@ public class Player : MonoBehaviour {
 
     private void FixedUpdate()
     {
+        m_cameraChild.SetPosition();
+
         //Only change our velocity if we detect input from the left stick
         if (m_takingMovement)
         {
             m_rigidbody.velocity = m_movementDirection * m_movementSpeed;
-            m_cameraChild.SetPosition();
             //If there's no input from the right stick
-            if(!m_takingLook)
+            if (!m_takingLook)
                 //Face the direction we're moving
                 gameObject.transform.rotation = Quaternion.LookRotation(m_movementDirection);
 
         }
         else
+        {
             //If we're not moving, slow our velocity 
             m_rigidbody.velocity *= 0.9f;
+        }
+
         m_takingMovement = false;
 
         //Only change our rotation if we detect input from the right stick
